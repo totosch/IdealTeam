@@ -12,5 +12,6 @@ public class Presenter {
 		this.model = model;
 	}
 	public void startGame() {
+		System.out.println("let me cook");
 	}
 }
