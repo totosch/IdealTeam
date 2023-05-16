@@ -44,7 +44,7 @@ public class View {
         
         // Load and display the image
         try {
-            URL imageURL = new URL("https://i.imgur.com/a2bPc28.jpeg"); // Replace with your image URL
+            URL imageURL = new URL("https://media.tycsports.com/files/2023/02/10/532928/lionel-messi_862x485.webp"); // Replace with your image URL
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(imageURL));
             JLabel label = new JLabel(imageIcon);
             frame.getContentPane().add(label);
