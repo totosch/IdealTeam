@@ -10,8 +10,12 @@ public class Presenter {
 	public Presenter(View view, Model model) {
 		this.view = view;
 		this.model = model;
+		
+		model.createIntegrante();
 	}
 	public void startGame() {
 		view.inicializarView();
 	}
+	
+	
 }

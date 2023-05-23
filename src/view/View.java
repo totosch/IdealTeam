@@ -11,9 +11,6 @@ public class View {
 
     private JFrame frame;
 
-    /**
-     * Launch the application.
-     */
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -27,24 +24,18 @@ public class View {
         });
     }
 
-    /**
-     * Create the application.
-     */
     public View() {
         initialize();
     }
 
-    /**
-     * Initialize the contents of the frame.
-     */
+
     private void initialize() {
         frame = new JFrame();
         frame.setBounds(100, 100, 1000, 1000);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        // Load and display the image
         try {
-            URL imageURL = new URL("https://i.imgur.com/a2bPc28.jpeg"); // Replace with your image URL
+            URL imageURL = new URL("https://i.imgur.com/HzPdWG5.png");
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(imageURL));
             JLabel label = new JLabel(imageIcon);
             frame.getContentPane().add(label);
