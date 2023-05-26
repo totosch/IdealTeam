@@ -3,6 +3,7 @@ package view;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
+import view.TarjetaEmpleado;
 
 import javax.swing.*;
 
@@ -36,7 +37,7 @@ public class View {
 		
 		JPanel container = new JPanel(new GridLayout(0, 3, 10, 10));
 		
-        for (int i = 1; i <= 40; i++) {
+        for (int i = 1; i <= 10; i++) {
             TarjetaEmpleado tarjeta = new TarjetaEmpleado("https://qotoqot.com/sad-animations/img/200/silent_tears/silent_tears.png","santi" + i + "", i, "jeje");
 
             container.add(tarjeta);
