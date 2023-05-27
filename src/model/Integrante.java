@@ -74,11 +74,11 @@ public class Integrante {
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Integrante ").append(nombre).append(": ")
-                .append("valor=").append(valor)
-                .append(", role=").append(rol)
-                .append(", relaciones=[");
+        StringBuilder printFinal = new StringBuilder();
+        printFinal.append("Integrante ").append(nombre).append(": ")
+                .append("Valor: ").append(valor)
+                .append(", Rol: ").append(rol)
+                .append(", Relaciones: ");
 
         int numRelaciones = relaciones.size();
         int count = 0;
@@ -86,17 +86,14 @@ public class Integrante {
         for (Map.Entry<Integrante, Boolean> entry : relaciones.entrySet()) {
             Integrante otherIntegrante = entry.getKey();
             boolean seLlevanBien = entry.getValue();
-            sb.append(otherIntegrante.getNombre()).append(": ").append(seLlevanBien ? "se llevan bien" : "se llevan mal");
+            printFinal.append(otherIntegrante.getNombre()).append(": ").append(seLlevanBien ? "se llevan bien" : "se llevan mal");
             count++;
 
             if (count < numRelaciones) {
-                sb.append(", ");
+            	printFinal.append(", ");
             }
         }
-
-        sb.append("]");
-
-        return sb.toString();
+        return printFinal.toString();
     }
 
 

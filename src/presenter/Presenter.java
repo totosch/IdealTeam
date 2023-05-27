@@ -16,7 +16,7 @@ public class Presenter {
 
         //este numero tiene que ser el mismo que usas en el view para la cantidad de tarjetitas
         ArrayList<Integrante> integrantes = model.createIntegrantes(5);
-        model.makeRelationships(integrantes);
+        model.establecerRelaciones(integrantes);
 
         printIntegrantes(integrantes);
     }
