@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class Integrante {
@@ -12,11 +14,13 @@ public class Integrante {
 	private int valor;
 	private String nombre;
 	private String rol;
+	private Map<Integrante, Boolean> relaciones;
 	
 	public Integrante(int valor, String nombre, String rol) {
 		this.valor = valor;
 		this.nombre = nombre;
 		this.rol = rol;
+		this.relaciones = new HashMap<>();
 	}
 	
 	public void asignarValor() {
@@ -50,6 +54,10 @@ public class Integrante {
 
 	    this.nombre = lineaRandom;
 	}
+	
+    public void addRelacion(Integrante integrante, boolean seLlevanBien) {
+        relaciones.put(integrante, seLlevanBien);
+    }
 
 	
     public int getValor() {
@@ -63,4 +71,33 @@ public class Integrante {
     public String getNombre() {
     	return nombre;
     }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Integrante ").append(nombre).append(": ")
+                .append("valor=").append(valor)
+                .append(", role=").append(rol)
+                .append(", relaciones=[");
+
+        int numRelaciones = relaciones.size();
+        int count = 0;
+
+        for (Map.Entry<Integrante, Boolean> entry : relaciones.entrySet()) {
+            Integrante otherIntegrante = entry.getKey();
+            boolean seLlevanBien = entry.getValue();
+            sb.append(otherIntegrante.getNombre()).append(": ").append(seLlevanBien ? "se llevan bien" : "se llevan mal");
+            count++;
+
+            if (count < numRelaciones) {
+                sb.append(", ");
+            }
+        }
+
+        sb.append("]");
+
+        return sb.toString();
+    }
+
+
 }
