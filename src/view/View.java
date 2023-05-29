@@ -1,15 +1,18 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
-import view.TarjetaEmpleado;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 public class View {
 
 	private JFrame frame;
+	private JProgressBar barraProgreso;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -37,6 +40,24 @@ public class View {
 		
 		JPanel container = new JPanel(new GridLayout(0, 3, 10, 10));
 		
+		JButton botonSim = new JButton("Iniciala papu");
+		JLabel diceAlgo = new JLabel("cambiare");
+		JProgressBar a = new JProgressBar();
+		
+		botonSim.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Simulacion s = new Simulacion(a, diceAlgo, 20);
+				s.execute();
+			}
+		});
+		
+		container.add(botonSim);
+		container.add(diceAlgo);
+		container.add(a);
+		
         for (int i = 1; i <= 10; i++) {
             TarjetaEmpleado tarjeta = new TarjetaEmpleado("https://qotoqot.com/sad-animations/img/200/silent_tears/silent_tears.png","santi" + i + "", i, "jeje");
 
@@ -48,11 +69,13 @@ public class View {
 		
 		JPanel container2 = new JPanel(new GridLayout(0, 1, 10, 10));
 		
+		barraProgreso = new JProgressBar();
+		
         for (int i = 1; i <= 10; i++) {
             TarjetaEmpleado tarjeta = new TarjetaEmpleado("https://qotoqot.com/sad-animations/img/200/silent_tears/silent_tears.png","santi" + i + "", i, "jeje");
             TarjetaEmpleado tarjeta2 = new TarjetaEmpleado("https://qotoqot.com/sad-animations/img/200/silent_tears/silent_tears.png","santi" + i + "", i, "jeje");
             
-            JPanel p = new JPanel(new GridLayout(1, 3, 10, 10));
+            JPanel p = new JPanel(new GridLayout(1, 5, 10, 10));
             
             p.add(tarjeta);
             JLabel textoUnion = new JLabel("es incompatible con:");
@@ -62,15 +85,39 @@ public class View {
 
             container2.add(p);
         }
+        
 		
-		JScrollPane panelSecundario = new JScrollPane(container2);
+        JPanel panelCentrado = crearPanelCentrado(100, 50);		
+        panelCentrado.add(container2, BorderLayout.CENTER);
+		
+		JScrollPane panelSecundario = new JScrollPane(panelCentrado);
 		panelSecundario.setPreferredSize(new Dimension(1280, 800));
 		
+		JPanel panelCentradoPrincipal = crearPanelCentrado(100, 50);
+		
+		panelCentradoPrincipal.add(barraProgreso);
+		
+		tabs.add("Dashboard", panelCentradoPrincipal);
 		tabs.add("Empleados disponibles", panelPrincipal);
 		tabs.add("Empleados incompatibles", panelSecundario);
 		
 		frame.getContentPane().add(tabs);
 		frame.pack();
+	}
+	
+	private JPanel crearPanelCentrado(int margenX, int margenY) {
+		JPanel panelConMargen = new JPanel(new BorderLayout());
+		panelConMargen.setBorder(BorderFactory.createEmptyBorder(margenY, margenX, margenY, margenX));
+		
+		return panelConMargen;
+	}
+	
+	public void agregarActionListenerBoton(ActionListener listener, JButton button) {
+		button.addActionListener(listener);		
+	}
+	
+	public void mostrarAvance(int avance) {
+		barraProgreso.setValue((int) avance);
 	}
 
 	public void inicializarView() {
