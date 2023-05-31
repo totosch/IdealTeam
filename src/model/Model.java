@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-import streamTest.Integrante;
-
 
 public class Model {
 
