@@ -47,8 +47,9 @@ public class Integrante {
 	        lineaDelArchivo.add(line);
 	    }
 	    lector.close();
-
+	    
 	    Random random = new Random();
+	    random.nextBoolean();
 	    int indiceRandom = random.nextInt(lineaDelArchivo.size());
 	    String lineaRandom = lineaDelArchivo.get(indiceRandom);
 
