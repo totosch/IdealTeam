@@ -36,6 +36,7 @@ public class Auxiliares {
 		for (int i = 0; i < integrantes.size(); i++) {
 			for (int j = 0; j < integrantes.size(); j++) {
 				if (i != j) {
+					System.out.println(integrantes.get(i).getRelaciones().get(integrantes.get(j)));
 					todosCompatibles = todosCompatibles && integrantes.get(i).getRelaciones().get(integrantes.get(j));
 				}
 			}
