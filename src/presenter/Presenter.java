@@ -18,11 +18,10 @@ public class Presenter {
         this.view = view;
         this.model = model;
 
-        model.crearIntegrantes();
+        model.crearIntegrantes(10);
         try {
 			model.establecerRelaciones();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         

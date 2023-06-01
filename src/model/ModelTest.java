@@ -14,7 +14,7 @@ public class ModelTest {
 	@Test
 	public void seCreaIntegrante() {
 		Model model = new Model();
-		List<Integrante> integrantes = model.crearIntegrantes();
+		List<Integrante> integrantes = model.crearIntegrantes(0);
 		assertNotNull(integrantes);
 		
 		for(Integrante integrante : integrantes) {
@@ -53,10 +53,15 @@ public class ModelTest {
 	}
 	
 	@Test
-	public void seEstablecenRelaciones() {
+	public void seEstablecenRelaciones() throws Exception {
 		Model model = new Model();
-		List<Integrante> integrantes = model.crearIntegrantes();
+		
+		model.crearIntegrantes(4);
+		model.establecerRelaciones();
 
+		for(Integrante integrante : model.getIntegrantes()) {
+			assertEquals(3, integrante.getRelaciones().size());
+		}		
 	}
 	
 	@Test

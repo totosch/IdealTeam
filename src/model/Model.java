@@ -10,14 +10,13 @@ import java.util.Random;
 
 public class Model {
 	private List<Integrante> integrantes;
-	private static int cantidad = 10;
 	private Map<String, Integer> cantidadPorPuesto;
 	
 	public Model() {
 		this.cantidadPorPuesto = new HashMap<String, Integer>();
 	}
 
-	public List<Integrante> crearIntegrantes() {
+	public List<Integrante> crearIntegrantes(int cantidad) {
 		integrantes = new ArrayList<Integrante>();
 
 		for (int i = 0; i < cantidad; i++) {
@@ -76,12 +75,16 @@ public class Model {
 		Integrante.printIntegrantes(solver.getMayor());
 	}
 	
-    public Map<String, Integer> getCantidadPorPuesto() {
+    protected Map<String, Integer> getCantidadPorPuesto() {
         return cantidadPorPuesto;
     }
     
-    public void setCantidadPorPuesto(Map<String, Integer> cantidadPorPuesto) {
+    protected void setCantidadPorPuesto(Map<String, Integer> cantidadPorPuesto) {
         this.cantidadPorPuesto = cantidadPorPuesto;
     }
+    
+	public List<Integrante> getIntegrantes(){
+		return integrantes;
+	}
 
 }
