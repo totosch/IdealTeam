@@ -12,10 +12,7 @@ public class Model {
 	private List<Integrante> integrantes;
 	private static int cantidad = 10;
 	private Map<String, Integer> cantidadPorPuesto;
-	
-	public Model() {
-		this.cantidadPorPuesto = new HashMap<String, Integer>();
-	}
+	private boolean seRelacionoIntegrantes;
 
 	public List<Integrante> crearIntegrantes() {
 		integrantes = new ArrayList<Integrante>();
@@ -49,9 +46,14 @@ public class Model {
 	}
 
 	public void establecerRelaciones() throws Exception {
-		if (integrantes.size() == 0) {
+		if (integrantes.isEmpty()) {
 			throw new Exception("No hay integrantes sobre los que realizar relaciones");
 		}
+		
+		if (seRelacionoIntegrantes) {
+			throw new Exception("Los integrantes ya fueron relacionados");
+		}
+		
 		Random random = new Random();
 		int size = integrantes.size();
 
@@ -66,9 +68,19 @@ public class Model {
 				}
 			}
 		}
+		
+		this.seRelacionoIntegrantes = true;
 	}
 	
-	public void resolverProblema() {
+	public void resolverProblema() throws Exception {
+		if (cantidadPorPuesto == null || cantidadPorPuesto.isEmpty()) {
+			throw new Exception("Ingrese la forma de su equipo para calcular el equipo ideal");
+		}
+		
+		if (integrantes == null || integrantes.isEmpty()) {
+			throw new Exception("Cargue los integrantes para calcular el equipo ideal");
+		}
+		
 		int tamanioEquipo = cantidadPorPuesto.values().stream().mapToInt(Integer::intValue).sum();
 		Solver solver = new Solver(integrantes, tamanioEquipo, cantidadPorPuesto);
 		solver.resolver();

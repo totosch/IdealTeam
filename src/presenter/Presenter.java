@@ -2,6 +2,7 @@ package presenter;
 
 import model.Model;
 import model.Integrante;
+import view.EmpleadoView;
 import view.View;
 
 import java.awt.event.ActionEvent;
@@ -17,14 +18,6 @@ public class Presenter {
     public Presenter(View view, Model model) {
         this.view = view;
         this.model = model;
-
-        model.crearIntegrantes();
-        try {
-			model.establecerRelaciones();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
         
         HashMap<String, Integer> cantidadPorPuesto = new HashMap<String, Integer>();
         
@@ -35,16 +28,42 @@ public class Presenter {
         model.registrarCantidadPorPuesto(cantidadPorPuesto);
         
         view.agregarActionListenerBoton(new SolverListener(),view.getBotonCorrerSolver());
+        view.agregarActionListenerBoton(new FetchListener(),view.getBotonBuscarEmpleados());
     }
 
     public void startGame() {
         view.inicializarView();
     }
     
+    public class FetchListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				System.out.println("al menos esta entrando aca?????");
+				List<Integrante> integrantes = model.crearIntegrantes();
+				List<EmpleadoView> empleados = new ArrayList<EmpleadoView>();
+				integrantes.forEach(integrante -> empleados.add(new EmpleadoView(
+						integrante.getValor(), 
+						integrante.getNombre(), 
+						integrante.getRol())));
+				
+				view.popularEmpleadosTotales(empleados);
+			} catch (Exception ex) {
+				view.mostrarMensajeEmergente(ex.getMessage());
+			}
+		}
+    	
+    }
+    
     public class SolverListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			model.resolverProblema();
+			try {
+				
+				model.resolverProblema();
+			} catch (Exception ex) {
+				view.mostrarMensajeEmergente(ex.getMessage());
+			}
 		}
     	
     }
