@@ -1,8 +1,11 @@
 package model;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Auxiliares {
 
@@ -46,5 +49,23 @@ public class Auxiliares {
 
 	public static int calcularValorEquipo(List<Integrante> equipo) {
 		return equipo.stream().mapToInt(Integrante::getValor).sum();
+	}
+	
+	public static Set<Set<Integrante>> parseRelaciones(List<Integrante> integrantes) {
+		Set<Set<Integrante>> relacionesMalas = new HashSet<Set<Integrante>>();
+		
+		for (Integrante integrante: integrantes) {
+			integrante.getRelaciones()
+					.entrySet()
+					.forEach(entry -> {
+						if (!entry.getValue()) {
+							Set<Integrante> integrantesMalLlevados = new HashSet<Integrante>();
+														
+							relacionesMalas.add(integrantesMalLlevados);	
+						}
+					});
+		}
+		
+		return relacionesMalas;
 	}
 }

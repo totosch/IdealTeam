@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 public class Integrante {
@@ -76,6 +77,22 @@ public class Integrante {
     
     public Map<Integrante, Boolean> getRelaciones() {
     	return relaciones;
+    }
+    
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Integrante myClass = (Integrante) o;
+        return nombre == myClass.nombre && valor == myClass.valor;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, valor);
     }
     
     @Override
