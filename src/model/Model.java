@@ -44,7 +44,6 @@ public class Model {
 				throw new IllegalArgumentException("El siguiente rol ingresado no existe: " + rol);
 			}
 		}
-		
 		this.cantidadPorPuesto = cantidadPorPuesto;
 	}
 
@@ -76,5 +75,13 @@ public class Model {
 		System.out.println(solver.getGenerated());
 		Integrante.printIntegrantes(solver.getMayor());
 	}
+	
+    public Map<String, Integer> getCantidadPorPuesto() {
+        return cantidadPorPuesto;
+    }
+    
+    public void setCantidadPorPuesto(Map<String, Integer> cantidadPorPuesto) {
+        this.cantidadPorPuesto = cantidadPorPuesto;
+    }
 
 }
