@@ -6,7 +6,10 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.swing.*;
 
@@ -16,6 +19,8 @@ public class View {
 	private JButton botonCorrerSolver;
 	private JButton botonBuscarEmpleados;
 	private JPanel containerEmpleados;
+	private JButton botonBuscarIncompatibilidades;
+	private JPanel containerIncompatibilidades;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -100,7 +105,7 @@ public class View {
 		return panelPrincipal;
 	}
 	
-	public void popularEmpleadosTotales(List<EmpleadoView> empleados){
+	public void popularEmpleadosTotales(List<IntegranteView> empleados){
 		empleados.forEach(empleado -> System.out.println(empleado.getNombre()));
 		empleados.forEach(empleado -> containerEmpleados.add(new TarjetaEmpleado(
 				"https://qotoqot.com/sad-animations/img/200/silent_tears/silent_tears.png", 
@@ -111,27 +116,34 @@ public class View {
 		containerEmpleados.revalidate();
 	}
 	
-	private JScrollPane construirVistaIncompatibilidades() {
-		JPanel container2 = new JPanel(new GridLayout(0, 1, 10, 10));
-		
-        for (int i = 1; i <= 10; i++) {
-            TarjetaEmpleado tarjeta = new TarjetaEmpleado("https://qotoqot.com/sad-animations/img/200/silent_tears/silent_tears.png","santi" + i + "", i, "jeje");
-            TarjetaEmpleado tarjeta2 = new TarjetaEmpleado("https://qotoqot.com/sad-animations/img/200/silent_tears/silent_tears.png","santi" + i + "", i, "jeje");
-            
-            JPanel p = new JPanel(new GridLayout(1, 5, 10, 10));
-            
-            p.add(tarjeta);
-            JLabel textoUnion = new JLabel("es incompatible con:");
+	public void popularIncompatibilidades(HashSet<HashSet<IntegranteView>> relaciones) {
+		relaciones.forEach(tupla -> {
+			ArrayList<TarjetaEmpleado> tarjetas = new ArrayList<TarjetaEmpleado>();
+			for (IntegranteView integrante: tupla) {
+				tarjetas.add(new TarjetaEmpleado(
+						"https://qotoqot.com/sad-animations/img/200/silent_tears/silent_tears.png",
+						integrante.getNombre(),
+						integrante.getValor(),
+						integrante.getRol()));
+			}
+			
+			JPanel p = new JPanel(new GridLayout(1, 5, 10, 10));
+			JLabel textoUnion = new JLabel("es incompatible con:");
             textoUnion.setHorizontalAlignment(SwingConstants.CENTER);
+            
+            p.add(tarjetas.get(0));
             p.add(textoUnion);
-            p.add(tarjeta2);
-
-            container2.add(p);
-        }
-        
+            p.add(tarjetas.get(1));
+            
+            containerIncompatibilidades.add(p);
+		});
+	}
+	
+	private JScrollPane construirVistaIncompatibilidades() {
+		containerIncompatibilidades = new JPanel(new GridLayout(0, 1, 10, 10));
 		
         JPanel panelCentrado = crearPanelCentrado(100, 50);		
-        panelCentrado.add(container2, BorderLayout.CENTER);
+        panelCentrado.add(containerIncompatibilidades, BorderLayout.CENTER);
 		
 		JScrollPane panelSecundario = new JScrollPane(panelCentrado);
 		panelSecundario.setPreferredSize(new Dimension(1280, 800));

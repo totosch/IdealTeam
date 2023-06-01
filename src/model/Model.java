@@ -13,6 +13,10 @@ public class Model {
 	private static int cantidad = 10;
 	private Map<String, Integer> cantidadPorPuesto;
 	private boolean seRelacionoIntegrantes;
+	
+	public List<Integrante> getIntegrantes(){
+		return integrantes;
+	}
 
 	public List<Integrante> crearIntegrantes() {
 		integrantes = new ArrayList<Integrante>();

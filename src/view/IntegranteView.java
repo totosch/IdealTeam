@@ -4,12 +4,12 @@ import java.util.Map;
 
 import model.Integrante;
 
-public class EmpleadoView {
+public class IntegranteView {
 	private int valor;
 	private String nombre;
 	private String rol;
 	
-	public EmpleadoView(int valor, String nombre, String rol) {
+	public IntegranteView(int valor, String nombre, String rol) {
 		this.valor = valor;
 		this.nombre = nombre;
 		this.rol = rol;
