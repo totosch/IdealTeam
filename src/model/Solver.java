@@ -1,52 +1,65 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.Map;
 
 public class Solver {
-	private Set integrantes;
+	private List<Integrante> integrantes;
+	private int tamanioEquipo;
+	private Map<String, Integer> cantidadPorPuesto;
 
-	private Set mayor;
+	private List<Integrante> mayor;
+	private int mayorValor = 0;
 
-	private Set actual;
+	private List<Integrante> actual;
 
 	private int generados;
 
-	public Solver(Set integrantesSolver) {
-		integrantes = integrantesSolver;
+	public Solver(List<Integrante> integrantes, int tamanioEquipo, Map<String, Integer> cantidadPorPuesto) {
+		this.integrantes = integrantes;
+		this.tamanioEquipo = tamanioEquipo;
+		this.cantidadPorPuesto = cantidadPorPuesto;
 	}
 
-	public Set resolver() {
-		mayor = new HashSet();
-		actual = new HashSet();
+	public List<Integrante> resolver() {
+		mayor = new ArrayList<Integrante>();
+		actual = new ArrayList<Integrante>();
 
 		generarDesde(0);
 		return mayor;
 	}
 
-	private void generarDesde(Integrante index) {
-		ArrayList<Integrante> equipo = new ArrayList<Integrante>();
-		if (0 == integrantes.size()) {
-			if (Auxiliares.esEquipoBienFormado(actual) && actual.size() > mayor.size()) {
+	private void generarDesde(int indice) {
+		if (indice == integrantes.size()) {
+			boolean esEquipoBienFormado = Auxiliares.esEquipoBienFormado(actual, cantidadPorPuesto, tamanioEquipo);
+			int valorEquipoActual = Auxiliares.calcularValorEquipo(actual);
+			if (esEquipoBienFormado && valorEquipoActual > mayorValor) {
 				mayor = clonar(actual);
+				mayorValor = valorEquipoActual;
+				System.out.println("entra a la condicion");
 			}
 			generados++;
 		} else {
-			actual.add(index);
-			generarDesde(index + 1);
+			actual.add(integrantes.get(indice));
+			generarDesde(indice + 1);
 
-			actual.remove(index);
-			generarDesde(index + 1);
+			actual.remove(integrantes.get(indice));
+			generarDesde(indice + 1);
 		}
 	}
 
-	private Set clonar(Set set) {
-		Set setClonado = new HashSet();
-		for (Integrante integrante : setClonado) {
-			setClonado.add(integrante);
+	private List<Integrante> clonar(List<Integrante> integrantes) {
+		List<Integrante> clonIntegrantes = new ArrayList<Integrante>();
+		for (Integrante integrante : integrantes) {
+			clonIntegrantes.add(integrante);
 		}
-		return setClonado;
+		
+		return clonIntegrantes;
+	}
+	
+	public List<Integrante> getMayor() {
+		return mayor;
 	}
 
 	public int getGenerated() {

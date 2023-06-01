@@ -4,7 +4,11 @@ import model.Model;
 import model.Integrante;
 import view.View;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Presenter {
     private Model model;
@@ -14,20 +18,34 @@ public class Presenter {
         this.view = view;
         this.model = model;
 
-        //este numero tiene que ser el mismo que usas en el view para la cantidad de tarjetitas
-        ArrayList<Integrante> integrantes = model.createIntegrantes(5);
-        model.establecerRelaciones(integrantes);
-
-        printIntegrantes(integrantes);
+        model.crearIntegrantes();
+        try {
+			model.establecerRelaciones();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        HashMap<String, Integer> cantidadPorPuesto = new HashMap<String, Integer>();
+        
+        for (String rol: Integrante.roles) {
+        	cantidadPorPuesto.put(rol, 1);
+        }
+        
+        model.registrarCantidadPorPuesto(cantidadPorPuesto);
+        
+        view.agregarActionListenerBoton(new SolverListener(),view.getBotonCorrerSolver());
     }
 
     public void startGame() {
         view.inicializarView();
     }
-
-    private void printIntegrantes(ArrayList<Integrante> integrantes) {
-        for (Integrante integrante : integrantes) {
-            System.out.println(integrante.toString());
-        }
+    
+    public class SolverListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			model.resolverProblema();
+		}
+    	
     }
 }

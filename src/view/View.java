@@ -13,6 +13,7 @@ public class View {
 
 	private JFrame frame;
 	private JProgressBar barraProgreso;
+	private JButton botonCorrerSolver;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -25,6 +26,10 @@ public class View {
 				}
 			}
 		});
+	}
+	
+	public JButton getBotonCorrerSolver() {
+		return botonCorrerSolver;
 	}
 
 	public View() {
@@ -57,6 +62,10 @@ public class View {
 		container.add(botonSim);
 		container.add(diceAlgo);
 		container.add(a);
+		
+		botonCorrerSolver = new JButton("Esto corre el solver");
+		
+		container.add(botonCorrerSolver);
 		
         for (int i = 1; i <= 10; i++) {
             TarjetaEmpleado tarjeta = new TarjetaEmpleado("https://qotoqot.com/sad-animations/img/200/silent_tears/silent_tears.png","santi" + i + "", i, "jeje");

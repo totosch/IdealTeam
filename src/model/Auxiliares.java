@@ -1,39 +1,49 @@
 package model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Auxiliares {
 
-	public static boolean esEquipoBienFormado(ArrayList<Integrante> integrantes) {
-		ArrayList<Integrante> equipoActual = new ArrayList();
+	public static boolean esEquipoBienFormado(List<Integrante> integrantes, Map<String, Integer> cantidadPorPuesto, int tamanioEquipo) {
+		if (integrantes.size() != tamanioEquipo) {
+			return false;
+		}
+		
+		HashMap<String, Integer> cantidadActualPorPuesto = new HashMap<String, Integer>();
+		
+		cantidadPorPuesto.keySet().forEach((puesto) -> cantidadActualPorPuesto.put(puesto, 0));
 		for (Integrante integrante : integrantes) {
-			if (equipoActual.get(0).getRol() != "Developer" || equipoActual.get(0).getRol() != "PM"
-					|| equipoActual.get(0).getRol() != "Lider" || equipoActual.get(0).getRol() != "Tester") {
-				equipoActual.add(integrante);
-				if (equipoActual.get(0).getRol() != "Developer" || equipoActual.get(0).getRol() != "PM"
-						|| equipoActual.get(0).getRol() != "Lider" || equipoActual.get(0).getRol() != "Tester") {
-					equipoActual.add(integrante);
-				}
-				if (equipoActual.get(0).getRol() != "Developer" || equipoActual.get(0).getRol() != "PM"
-						|| equipoActual.get(0).getRol() != "Lider" || equipoActual.get(0).getRol() != "Tester") {
-					equipoActual.add(integrante);
-				}
-				if (equipoActual.get(0).getRol() != "Developer" || equipoActual.get(0).getRol() != "PM"
-						|| equipoActual.get(0).getRol() != "Lider" || equipoActual.get(0).getRol() != "Tester") {
-					equipoActual.add(integrante);
+			int cantidadRolDeActual = cantidadActualPorPuesto.get(integrante.getRol());
+			cantidadActualPorPuesto.put(integrante.getRol(), cantidadRolDeActual + 1);
+		}
+		
+		boolean tieneCantidadesCorrectas = cantidadActualPorPuesto
+				.keySet()
+				.stream()
+				.allMatch((puesto) -> cantidadActualPorPuesto.get(puesto) == cantidadPorPuesto.get(puesto));
+		
+		if (!tieneCantidadesCorrectas) {
+			return false;
+		}
+		
+		boolean todosCompatibles = true;
+		
+		for (int i = 0; i < integrantes.size(); i++) {
+			for (int j = 0; j < integrantes.size(); j++) {
+				if (i != j) {
+					todosCompatibles = todosCompatibles && integrantes.get(i).getRelaciones().get(integrantes.get(j));
 				}
 			}
-			return true;
 		}
-
-		return false;
+		
+		System.out.println("compatibles" + todosCompatibles);
+		
+		return todosCompatibles;
 	}
 
-	public int calcularValorEquipo(ArrayList<Integrante> equipo) {
-		int valorDelEquipo = 0;
-		for (int i = 0; i < equipo.size(); i++) {
-			valorDelEquipo += equipo.get(i).getValor();
-		}
-		return valorDelEquipo;
+	public static int calcularValorEquipo(List<Integrante> equipo) {
+		return equipo.stream().mapToInt(Integrante::getValor).sum();
 	}
 }

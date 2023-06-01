@@ -16,6 +16,8 @@ public class Integrante {
 	private String rol;
 	private Map<Integrante, Boolean> relaciones;
 	
+	public static String[] roles = { "Developer", "PM", "Tester", "Lider" };
+	
 	public Integrante(int valor, String nombre, String rol) {
 		this.valor = valor;
 		this.nombre = nombre;
@@ -30,7 +32,6 @@ public class Integrante {
 	
 	public void asignarRol() {
 		Random rolRandom = new Random();
-		String[] roles = { "Developer", "PM", "Tester", "Lider", "Arquitecto" };
 		int i = rolRandom.nextInt(roles.length);
 		this.rol = roles[i];
 	}
@@ -73,6 +74,10 @@ public class Integrante {
     	return nombre;
     }
     
+    public Map<Integrante, Boolean> getRelaciones() {
+    	return relaciones;
+    }
+    
     @Override
     public String toString() {
         StringBuilder printFinal = new StringBuilder();
@@ -97,5 +102,10 @@ public class Integrante {
         return printFinal.toString();
     }
 
+    public static void printIntegrantes(List<Integrante> integrantes) {
+        for (Integrante integrante : integrantes) {
+            System.out.println(integrante.toString());
+        }
+    }
 
 }
