@@ -30,6 +30,7 @@ public class AuxiliaresTest {
 	@Test
 	public void estaBienFormadoElEquipo() {
 		Auxiliares auxiliares = new Auxiliares();
+		
 		List<Integrante> equipo = new ArrayList<Integrante>();
 		Map<String, Integer> cantidadPorPuesto = new HashMap<>();
 		
@@ -38,10 +39,27 @@ public class AuxiliaresTest {
 		Integrante integrante3 = new Integrante(1, null, "Developer");
 		Integrante integrante4 = new Integrante(5, null, "Tester");
 		
+		integrante1.addRelacion(integrante2, true);
+		integrante1.addRelacion(integrante3, true);
+		integrante1.addRelacion(integrante4, true);
+		
+		integrante2.addRelacion(integrante1, true);
+		integrante2.addRelacion(integrante3, true);
+		integrante2.addRelacion(integrante4, true);
+		
+		integrante3.addRelacion(integrante1, true);
+		integrante3.addRelacion(integrante2, true);
+		integrante3.addRelacion(integrante4, true);
+		
+		integrante4.addRelacion(integrante1, true);
+		integrante4.addRelacion(integrante2, true);
+		integrante4.addRelacion(integrante3, true);
+		
 		equipo.add(integrante1);
 		equipo.add(integrante2);
 		equipo.add(integrante3);
 		equipo.add(integrante4);
+		
 		
         cantidadPorPuesto.put("PM", 1);
         cantidadPorPuesto.put("Developer", 1);
