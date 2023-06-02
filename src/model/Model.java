@@ -12,10 +12,6 @@ public class Model {
 	private List<Integrante> integrantes;
 	private Map<String, Integer> cantidadPorPuesto;
 	private boolean seRelacionoIntegrantes;
-	
-	public List<Integrante> getIntegrantes(){
-		return integrantes;
-	}
 
 	public List<Integrante> crearIntegrantes(int cantidad) {
 		integrantes = new ArrayList<Integrante>();
@@ -48,9 +44,7 @@ public class Model {
 	}
 
 	public void establecerRelaciones() throws Exception {
-		if (integrantes.isEmpty()) {
-			throw new Exception("No hay integrantes sobre los que realizar relaciones");
-		}
+		validarExistenciaIntegrantes("No hay integrantes sobre los que realizar relaciones");
 		
 		if (seRelacionoIntegrantes) {
 			throw new Exception("Los integrantes ya fueron relacionados");
@@ -58,6 +52,8 @@ public class Model {
 		
 		Random random = new Random();
 		int size = integrantes.size();
+		
+		System.out.println(integrantes.size());
 
 		for (int i = 0; i < size; i++) {
 			Integrante integranteEje = integrantes.get(i);
@@ -79,16 +75,20 @@ public class Model {
 			throw new Exception("Ingrese la forma de su equipo para calcular el equipo ideal");
 		}
 		
-		if (integrantes == null || integrantes.isEmpty()) {
-			throw new Exception("Cargue los integrantes para calcular el equipo ideal");
-		}
-		
+		validarExistenciaIntegrantes("Cargue los integrantes para calcular el equipo ideal");
+
 		int tamanioEquipo = cantidadPorPuesto.values().stream().mapToInt(Integer::intValue).sum();
 		Solver solver = new Solver(integrantes, tamanioEquipo, cantidadPorPuesto);
 		solver.resolver();
 		
 		System.out.println(solver.getGenerated());
 		Integrante.printIntegrantes(solver.getMayor());
+	}
+	
+	private void validarExistenciaIntegrantes(String mensaje) throws Exception {
+		if (integrantes == null || integrantes.isEmpty()) {
+			throw new Exception(mensaje);
+		}
 	}
 	
     protected Map<String, Integer> getCantidadPorPuesto() {

@@ -58,12 +58,21 @@ public class Auxiliares {
 			integrante.getRelaciones()
 					.entrySet()
 					.forEach(entry -> {
+						System.out.println("value: " + entry.getValue());
 						if (!entry.getValue()) {
 							Set<Integrante> integrantesMalLlevados = new HashSet<Integrante>();
+							integrantesMalLlevados.add(integrante);
+							integrantesMalLlevados.add(entry.getKey());
 														
 							relacionesMalas.add(integrantesMalLlevados);	
 						}
 					});
+		}
+		
+		for (Set<Integrante> relacion: relacionesMalas) {
+			for(Integrante i: relacion) {
+				System.out.println(i.toString());
+			}
 		}
 		
 		return relacionesMalas;

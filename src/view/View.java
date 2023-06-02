@@ -42,6 +42,10 @@ public class View {
 	public JButton getBotonBuscarEmpleados() {
 		return botonBuscarEmpleados;
 	}
+	
+	public JButton getBotonIncompatibilidades() {
+		return botonBuscarIncompatibilidades;
+	}
 
 	public View() {
 		initialize();
@@ -127,6 +131,8 @@ public class View {
 						integrante.getRol()));
 			}
 			
+			System.out.println(tarjetas.toString());
+			
 			JPanel p = new JPanel(new GridLayout(1, 5, 10, 10));
 			JLabel textoUnion = new JLabel("es incompatible con:");
             textoUnion.setHorizontalAlignment(SwingConstants.CENTER);
@@ -137,10 +143,16 @@ public class View {
             
             containerIncompatibilidades.add(p);
 		});
+		
+		containerIncompatibilidades.revalidate();
 	}
 	
 	private JScrollPane construirVistaIncompatibilidades() {
 		containerIncompatibilidades = new JPanel(new GridLayout(0, 1, 10, 10));
+		
+		botonBuscarIncompatibilidades = new JButton("conseguir incompatibilidades");
+		
+		containerIncompatibilidades.add(botonBuscarIncompatibilidades);
 		
         JPanel panelCentrado = crearPanelCentrado(100, 50);		
         panelCentrado.add(containerIncompatibilidades, BorderLayout.CENTER);

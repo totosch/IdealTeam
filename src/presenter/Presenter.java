@@ -32,6 +32,7 @@ public class Presenter {
         
         view.agregarActionListenerBoton(new SolverListener(),view.getBotonCorrerSolver());
         view.agregarActionListenerBoton(new FetchListener(),view.getBotonBuscarEmpleados());
+        view.agregarActionListenerBoton(new RelacionesListener(),view.getBotonIncompatibilidades());
     }
 
     public void startGame() {
@@ -43,7 +44,7 @@ public class Presenter {
 		public void actionPerformed(ActionEvent e) {
 			try {
 				System.out.println("al menos esta entrando aca?????");
-				List<Integrante> integrantes = model.crearIntegrantes();
+				List<Integrante> integrantes = model.crearIntegrantes(10);
 				List<IntegranteView> empleados = new ArrayList<IntegranteView>();
 				integrantes.forEach(integrante -> empleados.add(new IntegranteView(
 						integrante.getValor(), 
@@ -66,11 +67,12 @@ public class Presenter {
 				List<Integrante> integrantes = model.getIntegrantes();
 				Set<Set<Integrante>> relacionesMalasSet = Auxiliares.parseRelaciones(integrantes);
 				
-			
 				HashSet<HashSet<IntegranteView>> relacionesMalasView = new HashSet<HashSet<IntegranteView>>();
 				relacionesMalasSet.forEach(tuplaIntegrante -> {
 					HashSet<Integrante> tuplaIntegranteParseada = new HashSet<Integrante>(tuplaIntegrante);
 					HashSet<IntegranteView> tuplaIntegranteView = new HashSet<IntegranteView>();
+					
+					System.out.println(tuplaIntegranteParseada.toString());
 					
 					tuplaIntegranteParseada.forEach(integrante -> tuplaIntegranteView.add(new IntegranteView(
 							integrante.getValor(), 
@@ -79,8 +81,6 @@ public class Presenter {
 					
 					relacionesMalasView.add(tuplaIntegranteView);
 				});
-				
-				List<IntegranteView> empleados = new ArrayList<IntegranteView>();
 				
 				view.popularIncompatibilidades(relacionesMalasView);
 			} catch (Exception ex) {
