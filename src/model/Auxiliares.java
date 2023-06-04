@@ -69,12 +69,6 @@ public class Auxiliares {
 					});
 		}
 		
-		for (Set<Integrante> relacion: relacionesMalas) {
-			for(Integrante i: relacion) {
-				System.out.println(i.toString());
-			}
-		}
-		
 		return relacionesMalas;
 	}
 }

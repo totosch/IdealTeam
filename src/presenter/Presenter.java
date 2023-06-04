@@ -3,7 +3,9 @@ package presenter;
 import model.Model;
 import model.Auxiliares;
 import model.Integrante;
+import view.AccionSimultanea;
 import view.IntegranteView;
+import view.Simulacion;
 import view.View;
 
 import java.awt.event.ActionEvent;
@@ -42,8 +44,27 @@ public class Presenter {
     public class FetchListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			Simulacion<List<IntegranteView>> simulacion = new Simulacion<List<IntegranteView>>(
+					view.getBarraProgresoEmpleados(), 
+					new AccionSimultanea<List<IntegranteView>>() {
+
+						@Override
+						public List<IntegranteView> accion() {
+							// TODO Auto-generated method stub
+							return enviarEmpleados();
+						}
+
+						@Override
+						public void obtenerEnView(List<IntegranteView> arg) {
+							view.popularEmpleadosTotales(arg);
+						}
+			});
+			
+			simulacion.execute();
+		}
+		
+		private List<IntegranteView> enviarEmpleados(){
 			try {
-				System.out.println("al menos esta entrando aca?????");
 				List<Integrante> integrantes = model.crearIntegrantes(10);
 				List<IntegranteView> empleados = new ArrayList<IntegranteView>();
 				integrantes.forEach(integrante -> empleados.add(new IntegranteView(
@@ -52,9 +73,12 @@ public class Presenter {
 						integrante.getRol())));
 				
 				view.popularEmpleadosTotales(empleados);
+				
+				return empleados;
 			} catch (Exception ex) {
 				view.mostrarMensajeEmergente(ex.getMessage());
 			}
+			return null;
 		}
     	
     }
@@ -62,6 +86,26 @@ public class Presenter {
     public class RelacionesListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			Simulacion<HashSet<HashSet<IntegranteView>>> simulacion = new Simulacion<HashSet<HashSet<IntegranteView>>>(
+					view.getBarraProgresoIncompatiblidades(), 
+					new AccionSimultanea<HashSet<HashSet<IntegranteView>>>() {
+
+						@Override
+						public HashSet<HashSet<IntegranteView>> accion() {
+							// TODO Auto-generated method stub
+							return enviarRelaciones();
+						}
+
+						@Override
+						public void obtenerEnView(HashSet<HashSet<IntegranteView>> arg) {
+							view.popularIncompatibilidades(arg);
+						}
+			});
+			
+			simulacion.execute();
+		}
+		
+		private HashSet<HashSet<IntegranteView>> enviarRelaciones() {
 			try {
 				model.establecerRelaciones();
 				List<Integrante> integrantes = model.getIntegrantes();
@@ -71,9 +115,7 @@ public class Presenter {
 				relacionesMalasSet.forEach(tuplaIntegrante -> {
 					HashSet<Integrante> tuplaIntegranteParseada = new HashSet<Integrante>(tuplaIntegrante);
 					HashSet<IntegranteView> tuplaIntegranteView = new HashSet<IntegranteView>();
-					
-					System.out.println(tuplaIntegranteParseada.toString());
-					
+										
 					tuplaIntegranteParseada.forEach(integrante -> tuplaIntegranteView.add(new IntegranteView(
 							integrante.getValor(), 
 							integrante.getNombre(), 
@@ -83,9 +125,12 @@ public class Presenter {
 				});
 				
 				view.popularIncompatibilidades(relacionesMalasView);
+				
+				return relacionesMalasView;
 			} catch (Exception ex) {
 				view.mostrarMensajeEmergente(ex.getMessage());
 			}
+			return null;
 		}
     	
     }

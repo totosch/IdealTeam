@@ -17,10 +17,16 @@ public class View {
 
 	private JFrame frame;
 	private JButton botonCorrerSolver;
+	
 	private JButton botonBuscarEmpleados;
 	private JPanel containerEmpleados;
+	private JProgressBar barraProgresoEmpleados;
+	private JLabel labelEmpleados;
+	
 	private JButton botonBuscarIncompatibilidades;
 	private JPanel containerIncompatibilidades;
+	private JProgressBar barraProgresoIncompatiblidades;
+	private JLabel labelIncompatibilidades;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -46,6 +52,22 @@ public class View {
 	public JButton getBotonIncompatibilidades() {
 		return botonBuscarIncompatibilidades;
 	}
+	
+	public JProgressBar getBarraProgresoEmpleados() {
+		return barraProgresoEmpleados;
+	}
+
+	public JProgressBar getBarraProgresoIncompatiblidades() {
+		return barraProgresoIncompatiblidades;
+	}
+	
+	public JLabel getLabelEmpleados() {
+		return labelEmpleados;
+	}
+
+	public JLabel getLabelIncompatiblidades() {
+		return labelIncompatibilidades;
+	}
 
 	public View() {
 		initialize();
@@ -70,24 +92,6 @@ public class View {
 		JPanel panelCentradoPrincipal = crearPanelCentrado(100, 50);
 		JPanel container = new JPanel(new GridLayout(0, 3, 10, 10));
 		
-		JButton botonSim = new JButton("Iniciala papu");
-		JLabel diceAlgo = new JLabel("cambiare");
-		JProgressBar a = new JProgressBar();
-		
-		botonSim.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				Simulacion s = new Simulacion(a, diceAlgo, 20);
-				s.execute();
-			}
-		});
-		
-		container.add(botonSim);
-		container.add(diceAlgo);
-		container.add(a);
-		
 		botonCorrerSolver = new JButton("Esto corre el solver");
 		
 		container.add(botonCorrerSolver);
@@ -98,10 +102,12 @@ public class View {
 	
 	private JScrollPane construirVistaEmpleadosTotales() {
 		containerEmpleados = new JPanel(new GridLayout(0, 3, 10, 10));
+		barraProgresoEmpleados = new JProgressBar();
 		
 		botonBuscarEmpleados = new JButton("conseguir empleados");
 		
 		containerEmpleados.add(botonBuscarEmpleados);
+		containerEmpleados.add(barraProgresoEmpleados);
         
 		JScrollPane panelPrincipal = new JScrollPane(containerEmpleados);
 		panelPrincipal.setPreferredSize(new Dimension(1280, 800));
@@ -109,8 +115,25 @@ public class View {
 		return panelPrincipal;
 	}
 	
+	private JScrollPane construirVistaIncompatibilidades() {
+		containerIncompatibilidades = new JPanel(new GridLayout(0, 1, 10, 10));
+		barraProgresoIncompatiblidades = new JProgressBar();
+		
+		botonBuscarIncompatibilidades = new JButton("conseguir incompatibilidades");
+		
+		containerIncompatibilidades.add(botonBuscarIncompatibilidades);
+		containerIncompatibilidades.add(barraProgresoIncompatiblidades);
+		
+        JPanel panelCentrado = crearPanelCentrado(100, 50);		
+        panelCentrado.add(containerIncompatibilidades, BorderLayout.CENTER);
+		
+		JScrollPane panelSecundario = new JScrollPane(panelCentrado);
+		panelSecundario.setPreferredSize(new Dimension(1280, 800));
+		
+		return panelSecundario;
+	}
+	
 	public void popularEmpleadosTotales(List<IntegranteView> empleados){
-		empleados.forEach(empleado -> System.out.println(empleado.getNombre()));
 		empleados.forEach(empleado -> containerEmpleados.add(new TarjetaEmpleado(
 				"https://qotoqot.com/sad-animations/img/200/silent_tears/silent_tears.png", 
 				empleado.getNombre(),
@@ -131,8 +154,6 @@ public class View {
 						integrante.getRol()));
 			}
 			
-			System.out.println(tarjetas.toString());
-			
 			JPanel p = new JPanel(new GridLayout(1, 5, 10, 10));
 			JLabel textoUnion = new JLabel("es incompatible con:");
             textoUnion.setHorizontalAlignment(SwingConstants.CENTER);
@@ -145,22 +166,6 @@ public class View {
 		});
 		
 		containerIncompatibilidades.revalidate();
-	}
-	
-	private JScrollPane construirVistaIncompatibilidades() {
-		containerIncompatibilidades = new JPanel(new GridLayout(0, 1, 10, 10));
-		
-		botonBuscarIncompatibilidades = new JButton("conseguir incompatibilidades");
-		
-		containerIncompatibilidades.add(botonBuscarIncompatibilidades);
-		
-        JPanel panelCentrado = crearPanelCentrado(100, 50);		
-        panelCentrado.add(containerIncompatibilidades, BorderLayout.CENTER);
-		
-		JScrollPane panelSecundario = new JScrollPane(panelCentrado);
-		panelSecundario.setPreferredSize(new Dimension(1280, 800));
-		
-		return panelSecundario;
 	}
 	
 	private JPanel crearPanelCentrado(int margenX, int margenY) {

@@ -1,47 +1,29 @@
 package view;
 
-import java.util.concurrent.ExecutionException;
-
-import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
-public class Simulacion extends SwingWorker<Integer, Integer> {
+public class Simulacion<T> extends SwingWorker<T, T> {
 	private JProgressBar barraProgreso;
-	private JLabel label;
-	private int numero;
+	private AccionSimultanea<T> accionSimultanea;
 	
-	public Simulacion(JProgressBar barra, JLabel label, int numero) {
+	public Simulacion(JProgressBar barra, AccionSimultanea<T> accionSimultanea) {
 		this.barraProgreso = barra;
-		this.label = label;
-		this.numero = numero;
+		this.accionSimultanea = accionSimultanea;
 	}
 
 	@Override
-	protected Integer doInBackground() throws Exception {
-		// TODO Auto-generated method stub
+	protected T doInBackground() throws Exception {
 		barraProgreso.setIndeterminate(true);
-		int i = 0;
-		for (i = 0; i < numero; i++) {
-			Thread.sleep(100);
-		}
+		T resultado = accionSimultanea.accion();
 		
-		return i;
+		return resultado;
 	}
 	
 	@Override
 	public void done() {
-		try {
-			if (!this.isCancelled()) {
-				label.setText(get().toString());
-				barraProgreso.setIndeterminate(false);
-			}
-			
-		} catch (InterruptedException ex) {
-			label.setText("error interrumpitivo");
-			
-		} catch (ExecutionException ex) {
-			label.setText("error ejecutativo");
+		if (!this.isCancelled()) {
+			barraProgreso.setIndeterminate(false);
 		}
 	}
 }
