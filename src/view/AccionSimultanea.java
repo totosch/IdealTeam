@@ -1,6 +1,5 @@
 package view;
 
-public interface AccionSimultanea<T> {
-	public T accion();
-	public void obtenerEnView(T arg);
+public interface AccionSimultanea {
+	public Object accion();
 }

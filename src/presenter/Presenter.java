@@ -44,19 +44,13 @@ public class Presenter {
     public class FetchListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Simulacion<List<IntegranteView>> simulacion = new Simulacion<List<IntegranteView>>(
+			Simulacion simulacion = new Simulacion(
 					view.getBarraProgresoEmpleados(), 
-					new AccionSimultanea<List<IntegranteView>>() {
-
+					new AccionSimultanea() {
 						@Override
 						public List<IntegranteView> accion() {
 							// TODO Auto-generated method stub
 							return enviarEmpleados();
-						}
-
-						@Override
-						public void obtenerEnView(List<IntegranteView> arg) {
-							view.popularEmpleadosTotales(arg);
 						}
 			});
 			
@@ -86,19 +80,13 @@ public class Presenter {
     public class RelacionesListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Simulacion<HashSet<HashSet<IntegranteView>>> simulacion = new Simulacion<HashSet<HashSet<IntegranteView>>>(
+			Simulacion simulacion = new Simulacion(
 					view.getBarraProgresoIncompatiblidades(), 
-					new AccionSimultanea<HashSet<HashSet<IntegranteView>>>() {
-
+					new AccionSimultanea() {
 						@Override
 						public HashSet<HashSet<IntegranteView>> accion() {
 							// TODO Auto-generated method stub
 							return enviarRelaciones();
-						}
-
-						@Override
-						public void obtenerEnView(HashSet<HashSet<IntegranteView>> arg) {
-							view.popularIncompatibilidades(arg);
 						}
 			});
 			

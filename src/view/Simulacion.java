@@ -3,19 +3,19 @@ package view;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
-public class Simulacion<T> extends SwingWorker<T, T> {
+public class Simulacion extends SwingWorker<Object, Object> {
 	private JProgressBar barraProgreso;
-	private AccionSimultanea<T> accionSimultanea;
+	private AccionSimultanea accionSimultanea;
 	
-	public Simulacion(JProgressBar barra, AccionSimultanea<T> accionSimultanea) {
+	public Simulacion(JProgressBar barra, AccionSimultanea accionSimultanea) {
 		this.barraProgreso = barra;
 		this.accionSimultanea = accionSimultanea;
 	}
 
 	@Override
-	protected T doInBackground() throws Exception {
+	protected Object doInBackground() throws Exception {
 		barraProgreso.setIndeterminate(true);
-		T resultado = accionSimultanea.accion();
+		Object resultado = accionSimultanea.accion();
 		
 		return resultado;
 	}

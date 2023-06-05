@@ -3,7 +3,10 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,6 +20,15 @@ public class View {
 
 	private JFrame frame;
 	private JButton botonCorrerSolver;
+	
+	private JLabel developerLabel;
+	private JTextField developerInput;
+	private JLabel pmLabel;
+	private JTextField pmInput;
+	private JLabel testerLabel;
+	private JTextField testerInput;
+	private JLabel liderLabel;
+	private JTextField liderInput;
 	
 	private JButton botonBuscarEmpleados;
 	private JPanel containerEmpleados;
@@ -89,15 +101,53 @@ public class View {
 	}
 	
 	private JPanel construirDashboard() {
-		JPanel panelCentradoPrincipal = crearPanelCentrado(100, 50);
-		JPanel container = new JPanel(new GridLayout(0, 3, 10, 10));
+		JPanel panelCentradoPrincipal = crearPanelCentrado(400, 200);
+		JPanel container = new JPanel();
+		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 		
+		JPanel panelTitulo = new JPanel();
+		panelTitulo.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+		JLabel menuTitle = new JLabel("Bienvenido a Equipo Ideal!");
+	    menuTitle.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	    panelTitulo.add(menuTitle);
+	    
+	    container.add(panelTitulo);
+	  
+	    developerLabel = new JLabel("Ingrese cantidad de Developers");
+	    developerInput = new JTextField("5");
+	    pmLabel = new JLabel("Ingrese cantidad de Project Managers");
+	    pmInput = new JTextField("5");
+	    testerLabel = new JLabel("Ingrese cantidad de Testers");
+	    testerInput = new JTextField("5");
+	    liderLabel = new JLabel("Ingrese cantidad de Lideres");
+	    liderInput = new JTextField("5");
+
+	    container.add(crearPanelInput(developerLabel, developerInput));
+	    container.add(crearPanelInput(pmLabel, pmInput));
+	    container.add(crearPanelInput(testerLabel, testerInput));
+	    container.add(crearPanelInput(liderLabel, liderInput));
+	    
+	    JPanel panelBoton = new JPanel();
+		panelTitulo.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+	    
 		botonCorrerSolver = new JButton("Esto corre el solver");
 		
-		container.add(botonCorrerSolver);
+		panelBoton.add(botonCorrerSolver);
+		
+		container.add(panelBoton);
 		panelCentradoPrincipal.add(container);
 		
 		return panelCentradoPrincipal;
+	}
+	
+	private JPanel crearPanelInput(JLabel label, JTextField input) {
+	    JPanel panelInput = new JPanel();
+		panelInput.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+	    input.setPreferredSize(new Dimension(100, 20));
+	    panelInput.add(label);
+	    panelInput.add(input);
+	    
+	    return panelInput;
 	}
 	
 	private JScrollPane construirVistaEmpleadosTotales() {
