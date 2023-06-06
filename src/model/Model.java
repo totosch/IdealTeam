@@ -13,7 +13,10 @@ public class Model {
 	private Map<String, Integer> cantidadPorPuesto;
 	private boolean seRelacionoIntegrantes;
 
-	public List<Integrante> crearIntegrantes(int cantidad) {
+	public List<Integrante> crearIntegrantes(int cantidad) throws Exception {
+		if (integrantes != null && !integrantes.isEmpty())
+			throw new Exception("Ya se crearon todos los empleados");
+		
 		integrantes = new ArrayList<Integrante>();
 
 		for (int i = 0; i < cantidad; i++) {
@@ -61,7 +64,7 @@ public class Model {
 			for (int j = 0; j < size; j++) {
 				if (i != j) {
 					Integrante integranteObjetivo = integrantes.get(j);
-					boolean seLlevanBien = j % 3 == 0 ? random.nextBoolean(): true;
+					boolean seLlevanBien = j % 25 == 0 ? random.nextBoolean(): true;
 					integranteEje.addRelacion(integranteObjetivo, seLlevanBien);
 				}
 			}
@@ -70,19 +73,23 @@ public class Model {
 		this.seRelacionoIntegrantes = true;
 	}
 	
-	public void resolverProblema() throws Exception {
+	public List<Integrante> resolverProblema() throws Exception {
+		validarExistenciaIntegrantes("Cargue los integrantes para calcular el equipo ideal");
+		
 		if (cantidadPorPuesto == null || cantidadPorPuesto.isEmpty()) {
 			throw new Exception("Ingrese la forma de su equipo para calcular el equipo ideal");
 		}
 		
-		validarExistenciaIntegrantes("Cargue los integrantes para calcular el equipo ideal");
+		if (!seRelacionoIntegrantes){
+			throw new Exception("Genere relaciones entre sus empleadas para calcular el equipo ideal");
+		}
 
 		int tamanioEquipo = cantidadPorPuesto.values().stream().mapToInt(Integer::intValue).sum();
+		System.out.println(tamanioEquipo);
 		Solver solver = new Solver(integrantes, tamanioEquipo, cantidadPorPuesto);
 		solver.resolver();
-		
-		System.out.println(solver.getGenerated());
-		Integrante.printIntegrantes(solver.getMayor());
+
+		return solver.getMayor();
 	}
 	
 	private void validarExistenciaIntegrantes(String mensaje) throws Exception {

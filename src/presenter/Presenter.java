@@ -35,6 +35,7 @@ public class Presenter {
         view.agregarActionListenerBoton(new SolverListener(),view.getBotonCorrerSolver());
         view.agregarActionListenerBoton(new FetchListener(),view.getBotonBuscarEmpleados());
         view.agregarActionListenerBoton(new RelacionesListener(),view.getBotonIncompatibilidades());
+        view.agregarActionListenerBoton(new RegisterListener(),view.getBotonRegistrarCantidades());
     }
 
     public void startGame() {
@@ -59,7 +60,7 @@ public class Presenter {
 		
 		private List<IntegranteView> enviarEmpleados(){
 			try {
-				List<Integrante> integrantes = model.crearIntegrantes(10);
+				List<Integrante> integrantes = model.crearIntegrantes(15);
 				List<IntegranteView> empleados = new ArrayList<IntegranteView>();
 				integrantes.forEach(integrante -> empleados.add(new IntegranteView(
 						integrante.getValor(), 
@@ -126,9 +127,48 @@ public class Presenter {
     public class SolverListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			try {
+				Simulacion simulacion = new Simulacion(view.getBarraProgresoResolver(),
+						new AccionSimultanea() {
+
+							@Override
+							public Object accion() {
+								try {
+								List<Integrante> equipoIdeal = model.resolverProblema();
+								
+								if (equipoIdeal == null) {
+									view.popularEquipoGanador(null);
+									
+									return null;
+								}
+								
+								Integrante.printIntegrantes(equipoIdeal);
+								
+								List<IntegranteView> equipoView = new ArrayList<IntegranteView>();
+								equipoIdeal.forEach(integrante -> equipoView.add(new IntegranteView(
+										integrante.getValor(), 
+										integrante.getNombre(), 
+										integrante.getRol())));
+								
+								view.popularEquipoGanador(equipoView);
+								} catch (Exception ex) {
+									view.mostrarMensajeEmergente(ex.getMessage());
+								}
+								return null;
+							}
+				});
 				
-				model.resolverProblema();
+				simulacion.execute();
+		}
+    	
+    }
+    
+    public class RegisterListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				view.calcularCantidadesPorRol();
+				model.registrarCantidadPorPuesto(view.getCantidadPorRol());
+				view.transformarInputsAInvariables();
 			} catch (Exception ex) {
 				view.mostrarMensajeEmergente(ex.getMessage());
 			}

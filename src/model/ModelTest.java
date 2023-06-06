@@ -12,7 +12,7 @@ import org.junit.Test;
 public class ModelTest {
 
 	@Test
-	public void seCreaIntegrante() {
+	public void seCreaIntegrante() throws Exception {
 		Model model = new Model();
 		List<Integrante> integrantes = model.crearIntegrantes(0);
 		assertNotNull(integrantes);

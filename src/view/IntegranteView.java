@@ -1,9 +1,5 @@
 package view;
 
-import java.util.Map;
-
-import model.Integrante;
-
 public class IntegranteView {
 	private int valor;
 	private String nombre;

@@ -21,10 +21,14 @@ public class Auxiliares {
 			cantidadActualPorPuesto.put(integrante.getRol(), cantidadRolDeActual + 1);
 		}
 		
+		cantidadActualPorPuesto.entrySet().forEach(entry -> System.out.println("puesto: " + entry.getKey() + ", cantidad: " + entry.getValue()));
+		
 		boolean tieneCantidadesCorrectas = cantidadActualPorPuesto
 				.keySet()
 				.stream()
 				.allMatch((puesto) -> cantidadActualPorPuesto.get(puesto) == cantidadPorPuesto.get(puesto));
+		
+		System.out.println("tiene cantidades correctas?: " + tieneCantidadesCorrectas);
 		
 		if (!tieneCantidadesCorrectas) {
 			return false;
@@ -35,13 +39,10 @@ public class Auxiliares {
 		for (int i = 0; i < integrantes.size(); i++) {
 			for (int j = 0; j < integrantes.size(); j++) {
 				if (i != j) {
-					System.out.println(integrantes.get(i).getRelaciones().get(integrantes.get(j)));
 					todosCompatibles = todosCompatibles && integrantes.get(i).getRelaciones().get(integrantes.get(j));
 				}
 			}
 		}
-		
-		System.out.println("compatibles" + todosCompatibles);
 		
 		return todosCompatibles;
 	}
@@ -57,7 +58,6 @@ public class Auxiliares {
 			integrante.getRelaciones()
 					.entrySet()
 					.forEach(entry -> {
-						System.out.println("value: " + entry.getValue());
 						if (!entry.getValue()) {
 							Set<Integrante> integrantesMalLlevados = new HashSet<Integrante>();
 							integrantesMalLlevados.add(integrante);
@@ -67,6 +67,8 @@ public class Auxiliares {
 						}
 					});
 		}
+		
+		System.out.println(relacionesMalas.size());
 		
 		return relacionesMalas;
 	}
