@@ -23,8 +23,6 @@ public class Auxiliares {
 			cantidadActualPorPuesto.put(integrante.getRol(), cantidadRolDeActual + 1);
 		}
 		
-		//cantidadActualPorPuesto.entrySet().forEach(entry -> System.out.println("puesto: " + entry.getKey() + ", cantidad: " + entry.getValue()));
-		
 		boolean tieneCantidadesCorrectas = cantidadActualPorPuesto
 				.keySet()
 				.stream()

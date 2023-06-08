@@ -76,8 +76,8 @@ public class Integrante {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Integrante myClass = (Integrante) o;
-        return nombre == myClass.nombre && valor == myClass.valor;
+        Integrante integrante = (Integrante) o;
+        return Objects.equals(nombre, integrante.nombre) && valor == integrante.valor;
     }
     
     public int getValor() {
