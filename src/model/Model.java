@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import model.Integrante.Rol;
+
 
 public class Model {
 	private List<Integrante> integrantes;
-	private Map<String, Integer> cantidadPorPuesto;
+	private Map<Rol, Integer> cantidadPorPuesto;
 	private boolean seRelacionoIntegrantes;
 
 	public List<Integrante> crearIntegrantes(int cantidad) throws Exception {
@@ -20,7 +22,7 @@ public class Model {
 		integrantes = new ArrayList<Integrante>();
 
 		for (int i = 0; i < cantidad; i++) {
-			Integrante integrante = new Integrante(0, "", "");
+			Integrante integrante = new Integrante(0, "", null);
 
 			integrante.asignarValor();
 			integrante.asignarRol();
@@ -37,12 +39,7 @@ public class Model {
 		return integrantes;
 	}
 	
-	public void registrarCantidadPorPuesto(Map<String, Integer> cantidadPorPuesto) throws IllegalArgumentException {
-		for (String rol : Integrante.roles) {
-			if (cantidadPorPuesto.get(rol) == null) {
-				throw new IllegalArgumentException("El siguiente rol ingresado no existe: " + rol);
-			}
-		}
+	public void registrarCantidadPorPuesto(Map<Rol, Integer> cantidadPorPuesto) {
 		this.cantidadPorPuesto = cantidadPorPuesto;
 	}
 
@@ -97,12 +94,16 @@ public class Model {
 		}
 	}
 	
-    protected Map<String, Integer> getCantidadPorPuesto() {
+    protected Map<Rol, Integer> getCantidadPorPuesto() {
         return cantidadPorPuesto;
     }
     
-    protected void setCantidadPorPuesto(Map<String, Integer> cantidadPorPuesto) {
+    protected void setCantidadPorPuesto(Map<Rol, Integer> cantidadPorPuesto) {
         this.cantidadPorPuesto = cantidadPorPuesto;
+    }
+    
+    protected boolean getSeRelacionoIntegrantes() {
+    	return seRelacionoIntegrantes;
     }
     
 	public List<Integrante> getIntegrantes(){

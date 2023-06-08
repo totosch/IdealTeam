@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import model.Integrante.Rol;
+
 public class ModelTest {
 
 	@Test
@@ -36,12 +38,12 @@ public class ModelTest {
 	@Test
 	public void seRegistraCantidadPorRol() {
 		Model model = new Model();
-		Map<String, Integer> cantidadPorPuesto = new HashMap<>();
+		Map<Rol, Integer> cantidadPorPuesto = new HashMap<Rol, Integer>();
 		
-        cantidadPorPuesto.put("PM", 5);
-        cantidadPorPuesto.put("Developer", 4);
-        cantidadPorPuesto.put("Tester", 2);
-        cantidadPorPuesto.put("Lider", 3);
+        cantidadPorPuesto.put(Rol.PM, 5);
+        cantidadPorPuesto.put(Rol.Developer, 4);
+        cantidadPorPuesto.put(Rol.Tester, 2);
+        cantidadPorPuesto.put(Rol.Lider, 3);
         
         try {
         	model.registrarCantidadPorPuesto(cantidadPorPuesto);
@@ -65,14 +67,25 @@ public class ModelTest {
 	}
 	
 	@Test
+	public void establecerRelacionesModificaBoolean() throws Exception {
+		Model model = new Model();
+		
+		model.crearIntegrantes(4);
+		model.establecerRelaciones();
+
+		assertEquals(model.getSeRelacionoIntegrantes(), true);
+		
+	}
+	
+	@Test
 	public void seResuelveProblema() {
 		Model model = new Model();
-		Map<String, Integer> cantidadPorPuesto = new HashMap<>();
+		Map<Rol, Integer> cantidadPorPuesto = new HashMap<Rol, Integer>();
 		
-        cantidadPorPuesto.put("PM", 5);
-        cantidadPorPuesto.put("Developer", 4);
-        cantidadPorPuesto.put("Tester", 2);
-        cantidadPorPuesto.put("Lider", 3);
+        cantidadPorPuesto.put(Rol.PM, 5);
+        cantidadPorPuesto.put(Rol.Developer, 4);
+        cantidadPorPuesto.put(Rol.Tester, 2);
+        cantidadPorPuesto.put(Rol.Lider, 3);
 		
         model.setCantidadPorPuesto(cantidadPorPuesto);
 
@@ -83,5 +96,51 @@ public class ModelTest {
         }
 	}
 	
-
+	@Test(expected = Exception.class)
+	public void resolverProblemaSinIntegrantes() throws Exception {
+		Model model = new Model();
+		
+		model.resolverProblema();
+	}
+	
+	@Test(expected = Exception.class)
+	public void resolverProblemaSinCantidadPorPuesto() throws Exception {
+		Model model = new Model();
+		
+		model.crearIntegrantes(4);
+		
+		model.resolverProblema();
+	}
+	
+	@Test(expected = Exception.class)
+	public void resolverProblemaSinRelaciones() throws Exception {
+		Model model = new Model();
+		
+		model.crearIntegrantes(4);
+		Map<Rol, Integer> cantidadPorPuesto = new HashMap<Rol, Integer>();
+        cantidadPorPuesto.put(Rol.PM, 5);
+        cantidadPorPuesto.put(Rol.Developer, 4);
+        cantidadPorPuesto.put(Rol.Tester, 2);
+        cantidadPorPuesto.put(Rol.Lider, 3);
+		
+		
+		model.resolverProblema();
+	}
+	
+	@Test(expected = Exception.class)
+	public void repetirCreacionIntegrantes() throws Exception {
+		Model model = new Model();
+		
+		model.crearIntegrantes(4);
+		model.crearIntegrantes(4);
+	}
+	
+	@Test(expected = Exception.class)
+	public void repetirRelacionIntegrantes() throws Exception {
+		Model model = new Model();
+		
+		model.crearIntegrantes(4);
+		model.establecerRelaciones();
+		model.establecerRelaciones();
+	}
 }

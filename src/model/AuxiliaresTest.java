@@ -9,11 +9,12 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import model.Integrante.Rol;
+
 public class AuxiliaresTest {
 
 	@Test
 	public void esValorEquipo() {
-		Auxiliares auxiliares = new Auxiliares();
 		List<Integrante> equipo = new ArrayList<Integrante>();
 		
 		Integrante integrante1 = new Integrante(3, null, null);
@@ -24,20 +25,18 @@ public class AuxiliaresTest {
 		equipo.add(integrante2);
 		equipo.add(integrante3);
 		
-		assertEquals(9, auxiliares.calcularValorEquipo(equipo));
+		assertEquals(9, Auxiliares.calcularValorEquipo(equipo));
 	}
 	
 	@Test
 	public void estaBienFormadoElEquipo() {
-		Auxiliares auxiliares = new Auxiliares();
-		
 		List<Integrante> equipo = new ArrayList<Integrante>();
-		Map<String, Integer> cantidadPorPuesto = new HashMap<>();
+		Map<Rol, Integer> cantidadPorPuesto = new HashMap<Rol, Integer>();
 		
-		Integrante integrante1 = new Integrante(3, null, "PM");
-		Integrante integrante2 = new Integrante(2, null, "Lider");
-		Integrante integrante3 = new Integrante(1, null, "Developer");
-		Integrante integrante4 = new Integrante(5, null, "Tester");
+		Integrante integrante1 = new Integrante(3, null, Rol.PM);
+		Integrante integrante2 = new Integrante(2, null, Rol.Lider);
+		Integrante integrante3 = new Integrante(1, null, Rol.Developer);
+		Integrante integrante4 = new Integrante(5, null, Rol.Tester);
 		
 		integrante1.addRelacion(integrante2, true);
 		integrante1.addRelacion(integrante3, true);
@@ -61,13 +60,13 @@ public class AuxiliaresTest {
 		equipo.add(integrante4);
 		
 		
-        cantidadPorPuesto.put("PM", 1);
-        cantidadPorPuesto.put("Developer", 1);
-        cantidadPorPuesto.put("Tester", 1);
-        cantidadPorPuesto.put("Lider", 1);
+        cantidadPorPuesto.put(Rol.PM, 1);
+        cantidadPorPuesto.put(Rol.Developer, 1);
+        cantidadPorPuesto.put(Rol.Tester, 1);
+        cantidadPorPuesto.put(Rol.Lider, 1);
         
         
-        assertTrue(auxiliares.esEquipoBienFormado(equipo, cantidadPorPuesto, 4));
+        assertTrue(Auxiliares.esEquipoBienFormado(equipo, cantidadPorPuesto, 4));
 	}
 
 }

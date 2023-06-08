@@ -24,14 +24,6 @@ public class Presenter {
         this.view = view;
         this.model = model;
         
-        HashMap<String, Integer> cantidadPorPuesto = new HashMap<String, Integer>();
-        
-        for (String rol: Integrante.roles) {
-        	cantidadPorPuesto.put(rol, 1);
-        }
-        
-        model.registrarCantidadPorPuesto(cantidadPorPuesto);
-        
         view.agregarActionListenerBoton(new SolverListener(),view.getBotonCorrerSolver());
         view.agregarActionListenerBoton(new FetchListener(),view.getBotonBuscarEmpleados());
         view.agregarActionListenerBoton(new RelacionesListener(),view.getBotonIncompatibilidades());

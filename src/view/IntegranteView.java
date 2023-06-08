@@ -1,11 +1,13 @@
 package view;
 
+import model.Integrante.Rol;
+
 public class IntegranteView {
 	private int valor;
 	private String nombre;
-	private String rol;
+	private Rol rol;
 	
-	public IntegranteView(int valor, String nombre, String rol) {
+	public IntegranteView(int valor, String nombre, Rol rol) {
 		this.valor = valor;
 		this.nombre = nombre;
 		this.rol = rol;
@@ -19,7 +21,7 @@ public class IntegranteView {
 		return nombre;
 	}
 
-	public String getRol() {
+	public Rol getRol() {
 		return rol;
 	}
 }
