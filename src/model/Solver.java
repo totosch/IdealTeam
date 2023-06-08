@@ -44,7 +44,6 @@ public class Solver {
 			if (esEquipoBienFormado && valorEquipoActual > mayorValor) {
 				mayor = clonar(actual);
 				mayorValor = valorEquipoActual;
-				System.out.println("entra a la condicion");
 			}
 			generados++;
 		} else {

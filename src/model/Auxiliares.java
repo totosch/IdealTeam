@@ -27,9 +27,7 @@ public class Auxiliares {
 				.keySet()
 				.stream()
 				.allMatch((puesto) -> cantidadActualPorPuesto.get(puesto) == cantidadPorPuesto.get(puesto));
-		
-		System.out.println("tiene cantidades correctas?: " + tieneCantidadesCorrectas);
-		
+			
 		if (!tieneCantidadesCorrectas) {
 			return false;
 		}
@@ -67,8 +65,6 @@ public class Auxiliares {
 						}
 					});
 		}
-		
-		System.out.println(relacionesMalas.size());
 		
 		return relacionesMalas;
 	}

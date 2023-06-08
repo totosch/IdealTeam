@@ -60,7 +60,7 @@ public class Presenter {
 		
 		private List<IntegranteView> enviarEmpleados(){
 			try {
-				List<Integrante> integrantes = model.crearIntegrantes(15);
+				List<Integrante> integrantes = model.crearIntegrantes(30);
 				List<IntegranteView> empleados = new ArrayList<IntegranteView>();
 				integrantes.forEach(integrante -> empleados.add(new IntegranteView(
 						integrante.getValor(), 
@@ -135,13 +135,11 @@ public class Presenter {
 								try {
 								List<Integrante> equipoIdeal = model.resolverProblema();
 								
-								if (equipoIdeal == null) {
+								if (equipoIdeal.size() < 1) {
 									view.popularEquipoGanador(null);
 									
 									return null;
 								}
-								
-								Integrante.printIntegrantes(equipoIdeal);
 								
 								List<IntegranteView> equipoView = new ArrayList<IntegranteView>();
 								equipoIdeal.forEach(integrante -> equipoView.add(new IntegranteView(

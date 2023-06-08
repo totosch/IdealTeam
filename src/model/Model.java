@@ -85,7 +85,6 @@ public class Model {
 		}
 
 		int tamanioEquipo = cantidadPorPuesto.values().stream().mapToInt(Integer::intValue).sum();
-		System.out.println(tamanioEquipo);
 		Solver solver = new Solver(integrantes, tamanioEquipo, cantidadPorPuesto);
 		solver.resolver();
 
