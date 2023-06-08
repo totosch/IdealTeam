@@ -6,14 +6,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import model.Integrante.Rol;
+
 public class Auxiliares {
 
-	public static boolean esEquipoBienFormado(List<Integrante> integrantes, Map<String, Integer> cantidadPorPuesto, int tamanioEquipo) {
+	public static boolean esEquipoBienFormado(List<Integrante> integrantes, Map<Rol, Integer> cantidadPorPuesto, int tamanioEquipo) {
 		if (integrantes.size() != tamanioEquipo) {
 			return false;
 		}
 		
-		HashMap<String, Integer> cantidadActualPorPuesto = new HashMap<String, Integer>();
+		HashMap<Rol, Integer> cantidadActualPorPuesto = new HashMap<Rol, Integer>();
 		
 		cantidadPorPuesto.keySet().forEach((puesto) -> cantidadActualPorPuesto.put(puesto, 0));
 		for (Integrante integrante : integrantes) {

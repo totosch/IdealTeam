@@ -7,16 +7,15 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.*;
+
+import model.Integrante.Rol;
 
 public class View {
 
@@ -44,7 +43,7 @@ public class View {
 	private JProgressBar barraProgresoIncompatiblidades;
 	private JLabel labelIncompatibilidades;
 	
-	private HashMap<String, Integer> cantidadPorRol;
+	private HashMap<Rol, Integer> cantidadPorRol;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -132,10 +131,10 @@ public class View {
 		JPanel cantidadContainer = new JPanel();
 		cantidadContainer.setLayout(new BoxLayout(cantidadContainer, BoxLayout.Y_AXIS));
 		
-		JLabel developerLabel = new JLabel("Cantidad de Developers: " + cantidadPorRol.get("Developer"));
-	    JLabel pmLabel = new JLabel("Cantidad de Project Managers: " + cantidadPorRol.get("PM"));
-	    JLabel testerLabel = new JLabel("Cantidad de Testers: " + cantidadPorRol.get("Tester"));
-	    JLabel liderLabel = new JLabel("Cantidad de Lideres: " + cantidadPorRol.get("Lider"));
+		JLabel developerLabel = new JLabel("Cantidad de Developers: " + cantidadPorRol.get(Rol.Developer));
+	    JLabel pmLabel = new JLabel("Cantidad de Project Managers: " + cantidadPorRol.get(Rol.PM));
+	    JLabel testerLabel = new JLabel("Cantidad de Testers: " + cantidadPorRol.get(Rol.Tester));
+	    JLabel liderLabel = new JLabel("Cantidad de Lideres: " + cantidadPorRol.get(Rol.Lider));
 	  
 	    cantidadContainer.add(developerLabel);
 	    cantidadContainer.add(pmLabel);
@@ -257,12 +256,12 @@ public class View {
 	
 	public void calcularCantidadesPorRol(){
 		try {
-			HashMap<String, Integer> cantidadPorRol = new HashMap<String, Integer>();
+			HashMap<Rol, Integer> cantidadPorRol = new HashMap<Rol, Integer>();
 			
-			cantidadPorRol.put("Developer", Integer.parseInt(developerInput.getText()));
-			cantidadPorRol.put("PM", Integer.parseInt(pmInput.getText()));
-			cantidadPorRol.put("Tester", Integer.parseInt(testerInput.getText()));
-			cantidadPorRol.put("Lider", Integer.parseInt(liderInput.getText()));
+			cantidadPorRol.put(Rol.Developer, Integer.parseInt(developerInput.getText()));
+			cantidadPorRol.put(Rol.PM, Integer.parseInt(pmInput.getText()));
+			cantidadPorRol.put(Rol.Tester, Integer.parseInt(testerInput.getText()));
+			cantidadPorRol.put(Rol.Lider, Integer.parseInt(liderInput.getText()));
 			
 			this.cantidadPorRol = cantidadPorRol;
 		} catch (NullPointerException e) {
@@ -321,7 +320,7 @@ public class View {
 		return labelIncompatibilidades;
 	}
 	
-	public HashMap<String, Integer> getCantidadPorRol() {
+	public HashMap<Rol, Integer> getCantidadPorRol() {
 		return cantidadPorRol;
 	}
 

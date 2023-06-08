@@ -14,8 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import model.Integrante.Rol;
+
 public class TarjetaEmpleado extends JPanel {
-	public TarjetaEmpleado(String url, String nombreEmpleado, int puntuacion, String puesto) {
+	public TarjetaEmpleado(String url, String nombreEmpleado, int puntuacion, Rol rol) {
 		super.setPreferredSize(new Dimension(200, 200));
 		super.setLayout(new GridLayout(1, 2));
 		super.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -26,7 +28,7 @@ public class TarjetaEmpleado extends JPanel {
 		
 		JLabel b = new JLabel("Nombre: " + nombreEmpleado);
 		JLabel c = new JLabel("Valoración: " + Integer.toString(puntuacion) + " de 5");
-		JLabel d = new JLabel("Rol: " + puesto);
+		JLabel d = new JLabel("Rol: " + rol);
 		
 		panelOcupacion.add(b);
 		panelOcupacion.add(c);

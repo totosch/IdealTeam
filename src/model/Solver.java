@@ -3,12 +3,13 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
+
+import model.Integrante.Rol;
 
 public class Solver {
 	private List<Integrante> integrantes;
 	private int tamanioEquipo;
-	private Map<String, Integer> cantidadPorPuesto;
+	private Map<Rol, Integer> cantidadPorPuesto;
 
 	private List<Integrante> mayor;
 	private int mayorValor = 0;
@@ -17,7 +18,7 @@ public class Solver {
 
 	private int generados;
 
-	public Solver(List<Integrante> integrantes, int tamanioEquipo, Map<String, Integer> cantidadPorPuesto) {
+	public Solver(List<Integrante> integrantes, int tamanioEquipo, Map<Rol, Integer> cantidadPorPuesto) {
 		this.integrantes = integrantes;
 		this.tamanioEquipo = tamanioEquipo;
 		this.cantidadPorPuesto = cantidadPorPuesto;

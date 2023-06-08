@@ -14,12 +14,18 @@ public class Integrante {
 	
 	private int valor;
 	private String nombre;
-	private String rol;
+	private Rol rol;
 	private Map<Integrante, Boolean> relaciones;
 	
-	public static String[] roles = { "Developer", "PM", "Tester", "Lider" };
+	public static enum Rol {
+		Developer,
+		PM,
+		Tester,
+		Lider
+	}
 	
-	public Integrante(int valor, String nombre, String rol) {
+	
+	public Integrante(int valor, String nombre, Rol rol) {
 		this.valor = valor;
 		this.nombre = nombre;
 		this.rol = rol;
@@ -33,8 +39,9 @@ public class Integrante {
 	
 	public void asignarRol() {
 		Random rolRandom = new Random();
-		int i = rolRandom.nextInt(roles.length);
-		this.rol = roles[i];
+		int i = rolRandom.nextInt(Rol.values().length);
+		
+		this.rol = Rol.values()[i];
 	}
 	
 	public void getLineaRandomDelArchivo() throws IOException {
@@ -77,7 +84,7 @@ public class Integrante {
         return valor;
     }
 
-    public String getRol() {
+    public Rol getRol() {
         return rol;
     }
     
