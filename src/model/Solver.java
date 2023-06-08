@@ -18,12 +18,6 @@ public class Solver {
 	private int generados;
 
 	public Solver(List<Integrante> integrantes, int tamanioEquipo, Map<String, Integer> cantidadPorPuesto) {
-		Integrante.printIntegrantes(integrantes);
-		System.out.println("tamanio dentro de solver: " + tamanioEquipo);
-		for (Entry<String, Integer> e: cantidadPorPuesto.entrySet()) {
-			System.out.println("rol: " + e.getKey());
-			System.out.println("cantidad: " + e.getValue());
-		}
 		this.integrantes = integrantes;
 		this.tamanioEquipo = tamanioEquipo;
 		this.cantidadPorPuesto = cantidadPorPuesto;

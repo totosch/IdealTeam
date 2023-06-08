@@ -58,46 +58,6 @@ public class View {
 			}
 		});
 	}
-	
-	public JButton getBotonRegistrarCantidades() {
-		return botonRegistrarCantidades;
-	}
-	
-	public JButton getBotonCorrerSolver() {
-		return botonCorrerSolver;
-	}
-	
-	public JButton getBotonBuscarEmpleados() {
-		return botonBuscarEmpleados;
-	}
-	
-	public JButton getBotonIncompatibilidades() {
-		return botonBuscarIncompatibilidades;
-	}
-	
-	public JProgressBar getBarraProgresoEmpleados() {
-		return barraProgresoEmpleados;
-	}
-
-	public JProgressBar getBarraProgresoIncompatiblidades() {
-		return barraProgresoIncompatiblidades;
-	}
-	
-	public JProgressBar getBarraProgresoResolver() {
-		return barraProgresoResolver;
-	}
-	
-	public JLabel getLabelEmpleados() {
-		return labelEmpleados;
-	}
-
-	public JLabel getLabelIncompatiblidades() {
-		return labelIncompatibilidades;
-	}
-	
-	public HashMap<String, Integer> getCantidadPorRol() {
-		return cantidadPorRol;
-	}
 
 	public View() {
 		initialize();
@@ -323,6 +283,46 @@ public class View {
 	
 	public void mostrarMensajeEmergente(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
+	}
+	
+	public JButton getBotonRegistrarCantidades() {
+		return botonRegistrarCantidades;
+	}
+	
+	public JButton getBotonCorrerSolver() {
+		return botonCorrerSolver;
+	}
+	
+	public JButton getBotonBuscarEmpleados() {
+		return botonBuscarEmpleados;
+	}
+	
+	public JButton getBotonIncompatibilidades() {
+		return botonBuscarIncompatibilidades;
+	}
+	
+	public JProgressBar getBarraProgresoEmpleados() {
+		return barraProgresoEmpleados;
+	}
+
+	public JProgressBar getBarraProgresoIncompatiblidades() {
+		return barraProgresoIncompatiblidades;
+	}
+	
+	public JProgressBar getBarraProgresoResolver() {
+		return barraProgresoResolver;
+	}
+	
+	public JLabel getLabelEmpleados() {
+		return labelEmpleados;
+	}
+
+	public JLabel getLabelIncompatiblidades() {
+		return labelIncompatibilidades;
+	}
+	
+	public HashMap<String, Integer> getCantidadPorRol() {
+		return cantidadPorRol;
 	}
 
 	public void inicializarView() {
