@@ -52,8 +52,6 @@ public class Model {
 		
 		Random random = new Random();
 		int size = integrantes.size();
-		
-		System.out.println(integrantes.size());
 
 		for (int i = 0; i < size; i++) {
 			Integrante integranteEje = integrantes.get(i);

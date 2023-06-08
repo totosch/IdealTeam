@@ -68,8 +68,18 @@ public class Integrante {
     public void addRelacion(Integrante integrante, boolean seLlevanBien) {
         relaciones.put(integrante, seLlevanBien);
     }
-
-	
+    
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Integrante myClass = (Integrante) o;
+        return nombre == myClass.nombre && valor == myClass.valor;
+    }
+    
     public int getValor() {
         return valor;
     }
@@ -86,17 +96,6 @@ public class Integrante {
     	return relaciones;
     }
     
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Integrante myClass = (Integrante) o;
-        return nombre == myClass.nombre && valor == myClass.valor;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(nombre, valor);
@@ -125,11 +124,4 @@ public class Integrante {
         }
         return printFinal.toString();
     }
-
-    public static void printIntegrantes(List<Integrante> integrantes) {
-        for (Integrante integrante : integrantes) {
-            System.out.println(integrante.toString());
-        }
-    }
-
 }
